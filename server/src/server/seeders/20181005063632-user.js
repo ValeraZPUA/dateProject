@@ -1,5 +1,6 @@
 'use strict';
 const bcrypt = require('bcrypt');
+const moment = require('moment');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -10,9 +11,13 @@ module.exports = {
         gender: 'man',
         password: bcrypt.hashSync('1qaz2w3e4r', bcrypt.genSaltSync(8)),
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        birthday: moment().subtract(18, 'year').format('YYYY-MM-DD'),
+        intention: 'friendship',
+        role: 'admin'
       }], {});
   },
+
 
   down: (queryInterface, Sequelize) => {
   }

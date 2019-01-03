@@ -50,7 +50,18 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-
+      birthday: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      intention: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      role: {
+        allowNull: false,
+        type: Sequelize.STRING
+      }
     });
   },
 

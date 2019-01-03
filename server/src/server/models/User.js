@@ -51,8 +51,31 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: true
       }
+    },
+    birthday: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      unique: false,
+      validate: {
+        notEmpty: true
+      }
+    },
+    intention: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: false,
+      validate: {
+        notEmpty: true
+      }
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: false,
+      validate: {
+        notEmpty: true
+      }
     }
-
   });
 
   return User;
