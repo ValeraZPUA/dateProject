@@ -17,5 +17,4 @@ router.delete('/api/user/:id', userController.deleteUser);
 
 router.post('/api/upload', photosController.uploadPhoto);
 
-
 module.exports = router;
