@@ -25,9 +25,9 @@ module.exports = (sequelize, DataTypes) => {
 
 Photo.associate = function(models) {
     Photo.belongsToMany(models.User, {
-        foreignKey: 'userId',
+        foreignKey: 'userID',
         onDelete: 'CASCADE',
-        through: 'ChannelUser'
+        through: 'Channel'
     });
 };
 

@@ -53,4 +53,11 @@ module.exports.deleteUser = async (req, res, next) => {
     }
 };
 
+module.exports.checkPassword = async (req, res, next) => {
+    try {
+        const user = await User.find(req.params.email);
+    } catch (e) {
+
+    }
+}
 

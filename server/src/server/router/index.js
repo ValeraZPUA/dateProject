@@ -14,7 +14,10 @@ router.get('/api/user/:id', userController.getUserById);
 router.post('/api/user', userController.createUser);
 router.put('/api/user', userController.updateUser);
 router.delete('/api/user/:id', userController.deleteUser);
+router.get('/api/login', userController.checkPassword);
 
-router.post('/api/upload', photosController.uploadPhoto);
+router.post('/api/photo/upload/:id', photosController.uploadPhoto);
+router.delete('/api/photo/delete/:photoName', photosController.deletePhoto);
+router.put('/api/photo/update/:userID', photosController.updatePhoto);
 
 module.exports = router;

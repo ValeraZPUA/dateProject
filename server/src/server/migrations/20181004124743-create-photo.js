@@ -10,13 +10,22 @@ module.exports = {
                 type: Sequelize.INTEGER
             },
             userID: {
-                type: DataTypes.INTEGER,
+                type: Sequelize.INTEGER,
                 allowNull: false,
             },
             photoName: {
-                type: DataTypes.STRING,
+                type: Sequelize.STRING,
                 allowNull: false,
-            }
+            },
+            createdAt: {
+                allowNull: false,
+                type: Sequelize.DATE,
+                defaultValue: Sequelize.NOW
+            },
+            updatedAt: {
+                allowNull: false,
+                type: Sequelize.DATE
+            },
         });
     },
 
