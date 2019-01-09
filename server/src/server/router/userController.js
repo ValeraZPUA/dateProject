@@ -6,7 +6,7 @@ import * as jwt from 'jsonwebtoken';
 module.exports.getAllUsers = async (req, res, next) => {
     try {
         const fltr = req.paramsFilter;
-        const user = await User.findAndCountAll({where: fltr});
+        const user = await User.findAll({where: fltr});
         res.send(user);
     } catch (e) {
         next(e);

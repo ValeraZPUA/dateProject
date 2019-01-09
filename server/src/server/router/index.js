@@ -10,8 +10,10 @@ const authRequired = require('../utils/authRequired');
 const roleCheck = require('../utils/roleCheck');
 const router = express.Router();
 
-router.get('/api/user', authRequired, validationMiddleWare.filters, userController.getAllUsers);
-router.get('/api/user/:id', authRequired, userController.getUserById);
+//router.get('/api/user', authRequired, validationMiddleWare.filters, userController.getAllUsers);
+router.get('/api/user', validationMiddleWare.filters, userController.getAllUsers);
+//router.get('/api/user/:id', authRequired, userController.getUserById);
+router.get('/api/user/:id', userController.getUserById);
 router.post('/api/user', userController.createUser);
 router.put('/api/user/:id', authRequired, roleCheck, userController.updateUser);
 router.delete('/api/user/:id', authRequired, roleCheck, userController.deleteUser);

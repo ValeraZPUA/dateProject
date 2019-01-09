@@ -1,0 +1,12 @@
+// ACTION TYPES
+export const USERS = 'USERS'
+export const USER_BY_ID = 'USER_BY_ID'
+
+// MUTATION TYPES
+export const USERS_REQUEST = 'USERS REQUEST'
+export const USERS_RESPONE = 'USERS RESPONE'
+export const USERS_ERRORS = 'USERS ERRORS'
+export const SINGLE_USER_RESPONSE = 'SINGLE_USER_RESPONSE'
+
+// GETTER TYPES
+export const GET_USER_BY_ID = 'GET_USER_BY_ID'

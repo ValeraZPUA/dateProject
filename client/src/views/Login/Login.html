@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="textInputsContent">
+        <div class="email">
+            <TextInput fieldTitle="EMAIL ADDRESS"
+                       fieldName="email"
+                       placeholder="julie@mail.com"
+                       fieldType="email"
+                       :fieldValue="email"
+                       :fieldChange="changeMethod"></TextInput>
+        </div>
+
+        <div class="password">
+            <TextInput fieldTitle="PASSWORD"
+                       fieldName="password"
+                       placeholder="Enter your password"
+                       fieldType="password"
+                       :fieldValue="password"
+                       :fieldChange="changeMethod"></TextInput>
+        </div>
+    </div>
+
+    <div class="buttonContent">
+        <Button name="ENTER"
+                :type="'primaryBtn'"
+                :handler="onLoginClicked"
+                :isInactive="false">
+        </Button>
+    </div>
+</div>
+
