@@ -3,7 +3,7 @@ import {USERS} from '../../../constants'
 import UserItem from '../../components/UserItem/UserItem.vue'
 
 export default {
-  name: 'HomePage',
+  name: 'Users',
   components: {
     UserItem
   },
@@ -12,9 +12,9 @@ export default {
   },
   computed: {
     ...mapState({
-      users: state => state.users,
-      isFetching: state => state.isFetching,
-      error: state => state.error
+      users: state => state.getUsers.users,
+      isFetching: state => state.getUsers.isFetching,
+      error: state => state.getUsers.error
     })
   },
   methods: {

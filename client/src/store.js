@@ -1,20 +1,49 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {
-  USERS,
-  USERS_REQUEST,
-  USERS_RESPONE,
-  USERS_ERRORS,
-  SINGLE_USER_RESPONSE,
-  USER_BY_ID,
-  GET_USER_BY_ID
+  LOGIN, LOGIN_REQUEST, LOGIN_RESPONSE, LOGIN_ERRORS,
+  USERS, USERS_REQUEST, USERS_RESPONSE, USERS_ERRORS, SINGLE_USER_RESPONSE, USER_BY_ID, GET_USER_BY_ID,
+  NEW_USER, NEW_USER_ERRORS, NEW_USER_REQUEST, NEW_USER_RESPONSE
 } from '../constants'
-import {getAllUsers, getUserById} from './api/rest/usersService.js'
-import logger from "vuex/dist/logger";
+import {getAllUsers, getUserById, login, createUser} from "./api/rest/usersService";
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const authModule = {
+  state: {
+    users: [],
+    isFetching: false,
+    error: null
+  },
+  mutations: {
+    [LOGIN_REQUEST](state) {
+      state.isFetching = true
+    },
+    [LOGIN_RESPONSE](state, users) {
+      state.users = users
+      localStorage.setItem('Access Token', state.users.token);
+      state.isFetching = false
+      state.error = null
+    },
+    [LOGIN_ERRORS](state, error) {
+      state.error = error
+      state.isFetching = false
+    }
+  },
+  actions: {
+    async [LOGIN]({commit}, formData) {
+      commit(LOGIN_REQUEST)
+      try {
+        const {data} = await login(formData)
+        commit(LOGIN_RESPONSE, data)
+      } catch (e) {
+        commit(LOGIN_ERRORS, e)
+      }
+    }
+  }
+}
+
+const getUsersModule = {
   state: {
     users: [],
     isFetching: false,
@@ -24,7 +53,7 @@ export default new Vuex.Store({
     [USERS_REQUEST](state) {
       state.isFetching = true
     },
-    [USERS_RESPONE](state, users) {
+    [USERS_RESPONSE](state, users) {
       state.users = users
       state.isFetching = false
       state.error = null
@@ -49,7 +78,7 @@ export default new Vuex.Store({
       commit(USERS_REQUEST)
       try {
         const {data} = await getAllUsers()
-        commit(USERS_RESPONE, data)
+        commit(USERS_RESPONSE, data)
       } catch (e) {
         commit(USERS_ERRORS, e)
       }
@@ -66,5 +95,46 @@ export default new Vuex.Store({
   },
   getters: {
     [GET_USER_BY_ID]: state => id => state.users.find(u => u._id === id)
+  }
+}
+
+const createUserModule = {
+  state: {
+    users: [],
+    isFetching: false,
+    error: null
+  },
+  mutations: {
+    [NEW_USER_REQUEST](state) {
+      state.isFetching = true
+    },
+    [NEW_USER_RESPONSE](state, users) {
+      state.users = users
+      state.isFetching = false
+      state.error = null
+    },
+    [NEW_USER_ERRORS](state, error) {
+      state.error = error
+      state.isFetching = false
+    }
+  },
+  actions: {
+    async [NEW_USER]({commit}, formData) {
+      commit(NEW_USER_REQUEST)
+      try {
+        const {data} = await createUser(formData)
+        commit(NEW_USER_RESPONSE, data)
+      } catch (e) {
+        commit(NEW_USER_ERRORS, e)
+      }
+    }
+  }
+}
+
+export default new Vuex.Store({
+  modules: {
+    auth: authModule,
+    getUsers: getUsersModule,
+    createNewUser: createUserModule
   }
 })

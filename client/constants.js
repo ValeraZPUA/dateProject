@@ -2,11 +2,23 @@
 export const USERS = 'USERS'
 export const USER_BY_ID = 'USER_BY_ID'
 
+export const LOGIN = 'LOGIN'
+
+export const NEW_USER = 'NEW_USER'
+
 // MUTATION TYPES
 export const USERS_REQUEST = 'USERS REQUEST'
-export const USERS_RESPONE = 'USERS RESPONE'
+export const USERS_RESPONSE = 'USERS RESPONSE'
 export const USERS_ERRORS = 'USERS ERRORS'
 export const SINGLE_USER_RESPONSE = 'SINGLE_USER_RESPONSE'
+
+export const LOGIN_REQUEST = 'LOGIN REQUEST'
+export const LOGIN_RESPONSE = 'LOGIN RESPONSE'
+export const LOGIN_ERRORS = 'LOGIN ERRORS'
+
+export const NEW_USER_REQUEST = 'NEW_USERS REQUEST'
+export const NEW_USER_RESPONSE = 'NEW_USERS RESPONSE'
+export const NEW_USER_ERRORS = 'NEW_USERS ERRORS'
 
 // GETTER TYPES
 export const GET_USER_BY_ID = 'GET_USER_BY_ID'

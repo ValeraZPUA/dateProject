@@ -1,26 +1,22 @@
-import TextInput from '@/components/TextInput/TextInput.vue'
-import Button from '@/components/Button/Button.vue'
+import {mapState, mapActions} from 'vuex'
+import {LOGIN} from '../../../constants'
 
 export default {
   name: 'Login',
   components: {
-    TextInput,
-    Button
+
   },
-  data: function () {
-    return {
-      email: '',
-      password: '',
-      showModal: false
-    }
+  created() {
+    this[LOGIN]({email: 'test@gmail.com', password: 'password'})
+  },
+  computed: {
+    ...mapState({
+      users: state => state.auth.users,
+      isFetching: state => state.auth.isFetching,
+      error: state => state.auth.error
+    })
   },
   methods: {
-    changeMethod: function (fieldValue, fieldName) {
-      this[fieldName] = fieldValue
-      console.log(this.password, this.email)
-    },
-    onLoginClicked() {
-      console.log('Clicked')
-    }
+    ...mapActions([LOGIN])
   }
 }

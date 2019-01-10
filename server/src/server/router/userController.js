@@ -29,7 +29,7 @@ module.exports.createUser = async (req, res, next) => {
         const newUser = await user.save();
         res.send(newUser);
     } catch (e) {
-        next(e);
+        next('This email have been already registered');
     }
 };
 
