@@ -7,13 +7,13 @@ export default {
 
   },
   created() {
-    this[LOGIN]({email: 'test@gmail.com', password: 'password'})
+    this[LOGIN]({email: 'test2@gmail.com', password: 'password'})
   },
   computed: {
     ...mapState({
-      users: state => state.auth.users,
-      isFetching: state => state.auth.isFetching,
-      error: state => state.auth.error
+      users: state => state.authMod.users,
+      isFetching: state => state.authMod.isFetching,
+      error: state => state.authMod.error
     })
   },
   methods: {

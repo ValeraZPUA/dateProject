@@ -5,6 +5,7 @@ import fs from 'fs';
 
 module.exports.uploadPhoto = async (req, res, next) => {
     try {
+        console.log('HERE');
         const storage = multer.diskStorage({
             destination: './public/img/',
             filename: function ( req, file, cb ) {
@@ -32,6 +33,7 @@ module.exports.uploadPhoto = async (req, res, next) => {
 module.exports.deletePhoto = async (req, res, next) => {
     try {
         const filePath = './public/img/' + req.params.photoName;
+        console.log(filePath);
         await Photo.destroy({where: {photoName: req.params.photoName}});
         fs.unlinkSync(filePath);
         res.send('deleted');

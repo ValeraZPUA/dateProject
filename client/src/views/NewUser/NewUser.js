@@ -6,9 +6,9 @@ export default {
   components: {},
   created() {
     this[NEW_USER]({
-      firstName: 'Name',
+      firstName: 'sdfasdfssdffsdfsdffsdf',
       lastName: 'LastName',
-      email: '0@gmail.com',
+      email: 'sdfaasdfasdfsdfssdf@gmail.com',
       password: 'password',
       gender: 'man',
       birthday: '2001-01-04',
@@ -18,9 +18,9 @@ export default {
   },
   computed: {
     ...mapState({
-      users: state => state.createNewUser.users,
-      isFetching: state => state.createNewUser.isFetching,
-      error: state => state.createNewUser.error
+      users: state => state.userMod.users,
+      isFetching: state => state.userMod.isFetching,
+      error: state => state.userMod.error
     })
   },
   methods: {

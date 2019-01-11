@@ -1,14 +1,14 @@
 import {mapState, mapActions} from 'vuex'
-import {USERS} from '../../../constants'
-import UserItem from '../../components/UserItem/UserItem.vue'
+import {UPDATE_USER} from '../../../constants'
 
 export default {
-  name: 'Users',
-  components: {
-    UserItem
-  },
+  name: 'UpdateUser',
+  components: {},
+
   created() {
-    this[USERS]()
+    this[UPDATE_USER]({
+      firstName: 'testName'
+    })
   },
   computed: {
     ...mapState({
@@ -18,6 +18,6 @@ export default {
     })
   },
   methods: {
-    ...mapActions([USERS])
+    ...mapActions([UPDATE_USER])
   }
 }

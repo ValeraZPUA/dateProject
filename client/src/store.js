@@ -1,11 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import * as constants from '../constants.js'
 import {
-  LOGIN, LOGIN_REQUEST, LOGIN_RESPONSE, LOGIN_ERRORS,
-  USERS, USERS_REQUEST, USERS_RESPONSE, USERS_ERRORS, SINGLE_USER_RESPONSE, USER_BY_ID, GET_USER_BY_ID,
-  NEW_USER, NEW_USER_ERRORS, NEW_USER_REQUEST, NEW_USER_RESPONSE
-} from '../constants'
-import {getAllUsers, getUserById, login, createUser} from "./api/rest/usersService";
+  getAllUsers,
+  getUserById,
+  login,
+  createUser,
+  updateUser,
+  deleteUser,
+  uploadPhoto,
+  deletePhoto
+} from './api/rest/usersService'
 
 Vue.use(Vuex)
 
@@ -16,53 +21,54 @@ const authModule = {
     error: null
   },
   mutations: {
-    [LOGIN_REQUEST](state) {
+    [constants.LOGIN_REQUEST](state) {
       state.isFetching = true
     },
-    [LOGIN_RESPONSE](state, users) {
+    [constants.LOGIN_RESPONSE](state, users) {
       state.users = users
-      localStorage.setItem('Access Token', state.users.token);
+      localStorage.setItem('Access Token', state.users.token)
+      localStorage.setItem('id', state.users.user.id)
       state.isFetching = false
       state.error = null
     },
-    [LOGIN_ERRORS](state, error) {
+    [constants.LOGIN_ERRORS](state, error) {
       state.error = error
       state.isFetching = false
     }
   },
   actions: {
-    async [LOGIN]({commit}, formData) {
-      commit(LOGIN_REQUEST)
+    async [constants.LOGIN]({commit}, formData) {
+      commit(constants.LOGIN_REQUEST)
       try {
         const {data} = await login(formData)
-        commit(LOGIN_RESPONSE, data)
+        commit(constants.LOGIN_RESPONSE, data)
       } catch (e) {
-        commit(LOGIN_ERRORS, e)
+        commit(constants.LOGIN_ERRORS, e)
       }
     }
   }
 }
 
-const getUsersModule = {
+const userModule = {
   state: {
     users: [],
     isFetching: false,
     error: null
   },
   mutations: {
-    [USERS_REQUEST](state) {
+    [constants.USERS_REQUEST](state) {
       state.isFetching = true
     },
-    [USERS_RESPONSE](state, users) {
+    [constants.USERS_RESPONSE](state, users) {
       state.users = users
       state.isFetching = false
       state.error = null
     },
-    [USERS_ERRORS](state, error) {
+    [constants.USERS_ERRORS](state, error) {
       state.error = error
       state.isFetching = false
     },
-    [SINGLE_USER_RESPONSE](state, user) {
+    [constants.SINGLE_USER_RESPONSE](state, user) {
       const userIndex = state.users.findIndex(u => u._id === user._id)
       if (userIndex === -1) {
         state.users.push(user)
@@ -71,61 +77,147 @@ const getUsersModule = {
       }
       state.isFetching = false
       state.error = null
-    }
-  },
-  actions: {
-    async [USERS]({commit}) {
-      commit(USERS_REQUEST)
-      try {
-        const {data} = await getAllUsers()
-        commit(USERS_RESPONSE, data)
-      } catch (e) {
-        commit(USERS_ERRORS, e)
-      }
     },
-    async [USER_BY_ID]({commit}, id) {
-      commit(USERS_REQUEST)
-      try {
-        const {data} = await getUserById(id)
-        commit(SINGLE_USER_RESPONSE, data)
-      } catch (e) {
-        commit(USERS_ERRORS, e)
-      }
-    }
-  },
-  getters: {
-    [GET_USER_BY_ID]: state => id => state.users.find(u => u._id === id)
-  }
-}
-
-const createUserModule = {
-  state: {
-    users: [],
-    isFetching: false,
-    error: null
-  },
-  mutations: {
-    [NEW_USER_REQUEST](state) {
+    [constants.NEW_USER_REQUEST](state) {
       state.isFetching = true
     },
-    [NEW_USER_RESPONSE](state, users) {
+    [constants.NEW_USER_RESPONSE](state, users) {
       state.users = users
       state.isFetching = false
       state.error = null
     },
-    [NEW_USER_ERRORS](state, error) {
+    [constants.NEW_USER_ERRORS](state, error) {
+      state.error = error
+      state.isFetching = false
+    },
+    [constants.UPDATE_USER_REQUEST](state) {
+      state.isFetching = true
+    },
+    [constants.UPDATE_USER_RESPONSE](state, users) {
+      state.users = users
+      state.isFetching = false
+      state.error = null
+    },
+    [constants.UPDATE_USER_ERRORS](state, error) {
+      state.error = error
+      state.isFetching = false
+    },
+    [constants.DELETE_USER_REQUEST](state) {
+      state.isFetching = true
+    },
+    [constants.DELETE_USER_RESPONSE](state, users) {
+      state.users = users
+      localStorage.removeItem('Access Token')
+      localStorage.removeItem('id')
+      state.isFetching = false
+      state.error = null
+    },
+    [constants.DELETE_USER_ERRORS](state, error) {
       state.error = error
       state.isFetching = false
     }
   },
   actions: {
-    async [NEW_USER]({commit}, formData) {
-      commit(NEW_USER_REQUEST)
+    async [constants.USERS]({commit}) {
+      commit(constants.USERS_REQUEST)
+      try {
+        const {data} = await getAllUsers()
+        commit(constants.USERS_RESPONSE, data)
+      } catch (e) {
+        commit(constants.USERS_ERRORS, e)
+      }
+    },
+    async [constants.USER_BY_ID]({commit}, id) {
+      commit(constants.USERS_REQUEST)
+      try {
+        const {data} = await getUserById(id)
+        commit(constants.SINGLE_USER_RESPONSE, data)
+      } catch (e) {
+        commit(constants.USERS_ERRORS, e)
+      }
+    },
+    async [constants.NEW_USER]({commit}, formData) {
+      commit(constants.NEW_USER_REQUEST)
       try {
         const {data} = await createUser(formData)
-        commit(NEW_USER_RESPONSE, data)
+        commit(constants.NEW_USER_RESPONSE, data)
       } catch (e) {
-        commit(NEW_USER_ERRORS, e)
+        commit(constants.NEW_USER_ERRORS, e)
+      }
+    },
+    async [constants.UPDATE_USER]({commit}, formData) {
+      commit(constants.UPDATE_USER_REQUEST)
+      try {
+        const {data} = await updateUser(formData)
+        commit(constants.UPDATE_USER_RESPONSE, data)
+      } catch (e) {
+        commit(constants.UPDATE_USER_ERRORS, e)
+      }
+    },
+    async [constants.DELETE_USER]({commit}) {
+      commit(constants.DELETE_USER_REQUEST)
+      try {
+        const {data} = await deleteUser()
+        commit(constants.DELETE_USER_RESPONSE, data)
+      } catch (e) {
+        commit(constants.DELETE_USER_ERRORS, e)
+      }
+    }
+  },
+  getters: {
+    [constants.GET_USER_BY_ID]: state => id => state.users.find(u => u._id === id)
+  }
+}
+
+const photoModule = {
+  state: {
+    photos: [],
+    isFetching: false,
+    error: null
+  },
+  mutations: {
+    [constants.NEW_PHOTO_REQUEST](state) {
+      state.isFetching = true
+    },
+    [constants.NEW_PHOTO_RESPONSE](state, photos) {
+      state.photos = photos
+      state.isFetching = false
+      state.error = null
+    },
+    [constants.NEW_PHOTO_ERRORS](state, error) {
+      state.error = error
+      state.isFetching = false
+    },
+    [constants.DELETE_PHOTO_REQUEST](state) {
+      state.isFetching = true
+    },
+    [constants.DELETE_PHOTO_RESPONSE](state, photos) {
+      state.photos = photos
+      state.isFetching = false
+      state.error = null
+    },
+    [constants.DELETE_PHOTO_ERRORS](state, error) {
+      state.error = error
+      state.isFetching = false
+    }
+  },
+  actions: {
+    async [constants.NEW_PHOTO]({commit}, formData) {
+      commit(constants.NEW_PHOTO_REQUEST)
+      try {
+        const {data} = await uploadPhoto(formData)
+        commit(constants.NEW_PHOTO_RESPONSE, data)
+      } catch (e) {
+        commit(constants.NEW_PHOTO_ERRORS, e)
+      }
+    },
+    async [constants.DELETE_PHOTO]({commit}) {
+      commit(constants.DELETE_PHOTO_REQUEST)
+      try {
+        const {data} = await deletePhoto()
+        commit(constants.DELETE_PHOTO_RESPONSE, data)
+      } catch (e) {
+        commit(constants.DELETE_PHOTO_ERRORS, e)
       }
     }
   }
@@ -133,8 +225,8 @@ const createUserModule = {
 
 export default new Vuex.Store({
   modules: {
-    auth: authModule,
-    getUsers: getUsersModule,
-    createNewUser: createUserModule
+    authMod: authModule,
+    userMod: userModule,
+    photoMod: photoModule
   }
 })

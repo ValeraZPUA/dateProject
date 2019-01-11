@@ -3,6 +3,11 @@ import Router from 'vue-router'
 import NewUser from './views/NewUser/NewUser.vue'
 import Users from './views/Users/Users.vue'
 import Login from './views/Login/Login.vue'
+import StartPage from './views/StartPage/StartPage.vue'
+import UpdateUser from './views/UpdateUser/UpdateUser.vue'
+import DeleteUser from './views/DeleteUser/DeleteUser.vue'
+import UploadPhoto from './views/UploadPhoto/UploadPhoto.vue'
+import DeletePhoto from './views/DeletePhoto/DeletePhoto.vue'
 
 Vue.use(Router)
 
@@ -12,6 +17,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'startpage',
+      component: StartPage
+    },
+    {
+      path: '/login',
       name: 'login',
       component: Login
     },
@@ -24,6 +34,26 @@ export default new Router({
       path: '/newuser',
       name: 'newuser',
       component: NewUser
+    },
+    {
+      path: '/updateuser',
+      name: 'updateuser',
+      component: UpdateUser
+    },
+    {
+      path: '/deleteuser',
+      name: 'deleteuser',
+      component: DeleteUser
+    },
+    {
+      path: '/uploadphoto',
+      name: 'uploadphoto',
+      component: UploadPhoto
+    },
+    {
+      path: '/deletephoto',
+      name: 'deletephoto',
+      component: DeletePhoto
     }
   ]
 })

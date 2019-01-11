@@ -1,14 +1,11 @@
 import {mapState, mapActions} from 'vuex'
-import {USERS} from '../../../constants'
-import UserItem from '../../components/UserItem/UserItem.vue'
+import {DELETE_USER} from '../../../constants'
 
 export default {
-  name: 'Users',
-  components: {
-    UserItem
-  },
+  name: 'DeleteUser',
+  components: {},
   created() {
-    this[USERS]()
+    this[DELETE_USER]()
   },
   computed: {
     ...mapState({
@@ -18,6 +15,6 @@ export default {
     })
   },
   methods: {
-    ...mapActions([USERS])
+    ...mapActions([DELETE_USER])
   }
 }
