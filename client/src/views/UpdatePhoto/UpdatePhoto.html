@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="large-12 medium-12 small-12 cell">
+        <label>Image Name to Update
+            <input type="text" id="nameToUpdate" ref="nameToUpdate" @change="handleFileUpload()"/>
+        </label>
+        <br>
+        <label>New Image
+            <input type="file" id="newImage" ref="newImage" @change="handleFileUpload()"/>
+        </label>
+        <button @click="submitFile()">Submit</button>
+    </div>
+</div>

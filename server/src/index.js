@@ -7,6 +7,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use(express.static(__dirname + './../public/img'));
+
 app.use(router);
 
 process.env.NODE_ENV === 'development' && app.get('/images/*', (req, res) => {

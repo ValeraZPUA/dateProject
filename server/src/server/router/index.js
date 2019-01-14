@@ -1,6 +1,5 @@
 import express from 'express';
 import "babel-polyfill";
-//import {User} from '../models/index.js'
 
 
 const validationMiddleWare = require('../utils/validationMiddleWare');
@@ -19,10 +18,10 @@ router.delete('/api/user/:id', authRequired, roleCheck, userController.deleteUse
 router.post('/api/login', userController.login);
 
 router.post('/api/photo/upload/:id', authRequired, roleCheck, photosController.uploadPhoto);
-
 router.delete('/api/photo/delete/:id&:photoName', authRequired, roleCheck, photosController.deletePhoto);
-router.put('/api/photo/update/:userID', authRequired, roleCheck, photosController.updatePhoto);
-router.get('/api/photo/get/:userID', authRequired, photosController.getAllUserPhoto);
+router.put('/api/photo/update/:id&:photoName', authRequired, roleCheck, photosController.updatePhoto);
+router.get('/api/photo/get/:id', authRequired, photosController.getUserPhotos);
+router.get('/api/photo/get', photosController.getAllPhotos);
 
 
 module.exports = router;

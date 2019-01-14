@@ -1,0 +1,10 @@
+<div class="container">
+    <div v-if="isFetching">
+        Loading...
+    </div>
+    <div v-for="photo in photos"
+         :key="photo._id">
+        <PhotoItem :current="photos.url"></PhotoItem>
+    </div>
+
+</div>

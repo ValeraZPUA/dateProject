@@ -8,6 +8,8 @@ import UpdateUser from './views/UpdateUser/UpdateUser.vue'
 import DeleteUser from './views/DeleteUser/DeleteUser.vue'
 import UploadPhoto from './views/UploadPhoto/UploadPhoto.vue'
 import DeletePhoto from './views/DeletePhoto/DeletePhoto.vue'
+import UpdatePhoto from './views/UpdatePhoto/UpdatePhoto.vue'
+import Photos from './views/Photos/Photos.vue'
 
 Vue.use(Router)
 
@@ -54,6 +56,16 @@ export default new Router({
       path: '/deletephoto',
       name: 'deletephoto',
       component: DeletePhoto
+    },
+    {
+      path: '/updatephoto',
+      name: 'updatephoto',
+      component: UpdatePhoto
+    },
+    {
+      path: '/photos',
+      name: 'photos',
+      component: Photos
     }
   ]
 })

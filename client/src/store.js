@@ -9,7 +9,10 @@ import {
   updateUser,
   deleteUser,
   uploadPhoto,
-  deletePhoto
+  deletePhoto,
+  updatePhoto,
+  getUserPhotos,
+  getAllPhotos
 } from './api/rest/usersService'
 
 Vue.use(Vuex)
@@ -25,9 +28,10 @@ const authModule = {
       state.isFetching = true
     },
     [constants.LOGIN_RESPONSE](state, users) {
-      state.users = users
+      state.users = users;
       localStorage.setItem('Access Token', state.users.token)
       localStorage.setItem('id', state.users.user.id)
+      localStorage.setItem('role', state.users.user.role)
       state.isFetching = false
       state.error = null
     },
@@ -107,8 +111,9 @@ const userModule = {
     },
     [constants.DELETE_USER_RESPONSE](state, users) {
       state.users = users
-      localStorage.removeItem('Access Token')
-      localStorage.removeItem('id')
+      localStorage.removeItem('Access Token');
+      localStorage.removeItem('id');
+      localStorage.removeItem('role');
       state.isFetching = false
       state.error = null
     },
@@ -176,7 +181,19 @@ const photoModule = {
     error: null
   },
   mutations: {
-    [constants.NEW_PHOTO_REQUEST](state) {
+    [constants.PHOTO_REQUEST](state) {
+      state.isFetching = true
+    },
+    [constants.PHOTO_RESPONSE](state, photos) {
+      state.photos = photos
+      state.isFetching = false
+      state.error = null
+    },
+    [constants.PHOTO_ERRORS](state, error) {
+      state.error = error
+      state.isFetching = false
+    },
+    [constants.PHOTO_REQUEST](state) {
       state.isFetching = true
     },
     [constants.NEW_PHOTO_RESPONSE](state, photos) {
@@ -199,9 +216,30 @@ const photoModule = {
     [constants.DELETE_PHOTO_ERRORS](state, error) {
       state.error = error
       state.isFetching = false
+    },
+    [constants.UPDATE_PHOTO_REQUEST](state) {
+      state.isFetching = true
+    },
+    [constants.UPDATE_PHOTO_RESPONSE](state, photos) {
+      state.photos = photos
+      state.isFetching = false
+      state.error = null
+    },
+    [constants.UPDATE_PHOTO_ERRORS](state, error) {
+      state.error = error
+      state.isFetching = false
     }
   },
   actions: {
+    async [constants.PHOTO]({commit}) {
+      commit(constants.PHOTO_REQUEST)
+      try {
+        const {data} = await getAllPhotos()
+        commit(constants.PHOTO_RESPONSE, data)
+      } catch (e) {
+        commit(constants.PHOTO_ERRORS, e)
+      }
+    },
     async [constants.NEW_PHOTO]({commit}, formData) {
       commit(constants.NEW_PHOTO_REQUEST)
       try {
@@ -211,13 +249,22 @@ const photoModule = {
         commit(constants.NEW_PHOTO_ERRORS, e)
       }
     },
-    async [constants.DELETE_PHOTO]({commit}) {
+    async [constants.DELETE_PHOTO]({commit}, namePhoto) {
       commit(constants.DELETE_PHOTO_REQUEST)
       try {
-        const {data} = await deletePhoto()
+        const {data} = await deletePhoto(namePhoto)
         commit(constants.DELETE_PHOTO_RESPONSE, data)
       } catch (e) {
         commit(constants.DELETE_PHOTO_ERRORS, e)
+      }
+    },
+    async [constants.UPDATE_PHOTO]({commit}, formData) {
+      commit(constants.UPDATE_PHOTO_REQUEST)
+      try {
+        const {data} = await updatePhoto(formData)
+        commit(constants.UPDATE_PHOTO_RESPONSE, data)
+      } catch (e) {
+        commit(constants.UPDATE_PHOTO_ERRORS, e)
       }
     }
   }

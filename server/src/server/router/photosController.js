@@ -1,11 +1,11 @@
 import multer from 'multer';
 import {Photo} from "../models";
 import fs from 'fs';
+import path from 'path';
 
 
 module.exports.uploadPhoto = async (req, res, next) => {
     try {
-        console.log('HERE');
         const storage = multer.diskStorage({
             destination: './public/img/',
             filename: function ( req, file, cb ) {
@@ -33,7 +33,6 @@ module.exports.uploadPhoto = async (req, res, next) => {
 module.exports.deletePhoto = async (req, res, next) => {
     try {
         const filePath = './public/img/' + req.params.photoName;
-        console.log(filePath);
         await Photo.destroy({where: {photoName: req.params.photoName}});
         fs.unlinkSync(filePath);
         res.send('deleted');
@@ -44,14 +43,16 @@ module.exports.deletePhoto = async (req, res, next) => {
 
 module.exports.updatePhoto = async (req, res, next) => {
     try {
-        const photo = await Photo.findAll({where: {userID: req.params.userID}});
+        const photo = await Photo.findAll({where: {userID: req.params.id, photoName: req.params.photoName}});
+        console.log('PHOTO' + photo);
         const filePath = './public/img/' + photo[0].photoName;
+        console.log('FILEPATH' + filePath);
         fs.unlinkSync(filePath);
 
         const storage = multer.diskStorage({
             destination: './public/img/',
             filename: function ( req, file, cb ) {
-                const newPhotoName = req.params.userID + '-id-' + Date.now() + '-' + file.originalname;
+                const newPhotoName = req.params.id + '-id-' + Date.now() + '-' + file.originalname;
                 cb( null, newPhotoName);
                 const updatedPhoto = {photoName: newPhotoName, updateAt: Date.now()};
                 Photo.update(updatedPhoto, {where: {photoName: photo[0].photoName}});
@@ -72,13 +73,69 @@ module.exports.updatePhoto = async (req, res, next) => {
     }
 };
 
-module.exports.getAllUserPhoto = async (req, res, next) => {
+module.exports.getUserPhotos = async (req, res, next) => {
     try {
         const photo = req.params;
-        const photos = await Photo.findAll({where: {userID: photo.userID}});
+        const photos = await Photo.findAll({where: {userID: photo.id}});
         res.send(photos);
     } catch (e) {
         next(e);
     }
+};
+
+
+module.exports.getAllPhotos = async (req, res, next) => {
+    console.log("HERE");
+
+    try {
+
+        const imgURL = {url: 'http://localhost:3000/25-id-1547478817267-001-aeroplane.png'};
+        //const imgURL = 'http://localhost:3000/25-id-1547478817267-001-aeroplane.png';
+        res.send(imgURL);
+    } catch (e) {
+        next(e);
+    }
+
+
+    //fs.readFile('../../public/pexels-photo-46710.jpeg');
+
+    //const folders = fs.readdirSync('../../public/');
+
+    // const objArray = [];
+    // objArray.push(fs.readdirSync('../../public/pexels-photo-46710.jpeg'));
+    // console.log(objArray[0])
+
+    //
+    // folders.forEach((folder) => {
+    //     const obj    = {};
+    //     const files  = fs.readdirSync('../../public/' + folder);
+    //     obj.folder = folder;
+    //     obj.files  = files;
+    //     objArray.push(obj);
+    //     console.log(objArray[0])
+    // });
+    // console.log(objArray[0])
+    //res.render('index', { data: JSON.stringify(objArray) });
+
+
+    //res.sendFile('/server/src/public/pexels-photo-46710.jpeg');
+
+
+    //const path = path.join(__dirname, '../../public/', 'pexels-photo-46710.jpeg');
+    // res.sendFile(path.join(__dirname, '../../public/', 'pexels-photo-46710.jpeg'), {
+    //     bufferSize: 10240
+    // });
+
+
+    //res.sendFile('/src/public/pexels-photo-46710.jpeg');
+
+
+    // try {
+    //
+    //     const photo = await Photo.findAll();
+    //     res.send(photo);
+    // } catch (e) {
+    //     next(e);
+    // }
 };
 

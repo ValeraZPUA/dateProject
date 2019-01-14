@@ -21,11 +21,10 @@ export default {
   },
   methods: {
     handleFileUpload() {
-      this.namePhoto = this.$refs.imgName;
+      this.namePhoto = this.$refs.imgName.value;
     },
     submitFile() {
       this[DELETE_PHOTO](this.namePhoto)
-      console.log(this.namePhoto)
     },
     ...mapActions([DELETE_PHOTO])
   }

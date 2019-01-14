@@ -7,7 +7,7 @@ export default {
 
   },
   created() {
-    this[LOGIN]({email: 'test2@gmail.com', password: 'password'})
+    this[LOGIN]({email: 'test@gmail.com', password: 'password'})
   },
   computed: {
     ...mapState({

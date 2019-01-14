@@ -29,4 +29,16 @@ export const uploadPhoto = (formData) => {
   return axios.post(restURL + '/photo/upload/' + id.params.id, bodyFormData, auth)
 }
 
-export const deletePhoto = () => axios.delete(restURL + '/photo/delete/' + id.params.id, auth)
+export const deletePhoto = (namePhoto) => axios.delete(restURL + '/photo/delete/' +
+  id.params.id +
+  '&' +
+  namePhoto, auth)
+
+export const updatePhoto = (formData) => axios.put(restURL + '/photo/update/' + id.params.id + '&' + formData.get('txt'),
+  formData,
+  auth)
+
+export const getUserPhotos = () => axios.get(restURL + '/photo/get/' + id.params.id, auth)
+
+export const getAllPhotos = () => axios.get(restURL + '/photo/get', auth)
+
