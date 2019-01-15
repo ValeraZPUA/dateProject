@@ -7,7 +7,7 @@ export default {
 
   created() {
     this[UPDATE_USER]({
-      firstName: 'testName'
+      isBanned: true
     })
   },
   computed: {

@@ -33,16 +33,6 @@ module.exports.createUser = async (req, res, next) => {
     }
 };
 
-// module.exports.updateUser = async (req, res, next) => {
-//     try {
-//         const user = req.body;
-//         await User.update(user, {where: {id: user.id}});
-//         res.send("updated");
-//     } catch (e) {
-//         next(e);
-//     }
-// };
-
 module.exports.updateUser = async (req, res, next) => {
     try {
         const user = req.body;
@@ -52,27 +42,6 @@ module.exports.updateUser = async (req, res, next) => {
         next(e);
     }
 };
-
-// module.exports.deleteUser = async (req, res, next) => {
-//     try {
-//         console.log(req.user);
-//         await User.destroy({where: {id: req.user.id}})
-//         res.send("deleted");
-//     } catch (e) {
-//         next(e);
-//     }
-// };
-
-// module.exports.deleteUser = async (req, res, next) => {
-//     try {
-//         const user = await User.destroy({where: {id: req.params.id}})
-//             .then(deletedUser => {
-//                 res.send(user);
-//             });
-//     } catch (e) {
-//         next(e);
-//     }
-// };
 
 module.exports.deleteUser = async (req, res, next) => {
     try {
@@ -102,3 +71,12 @@ module.exports.login = async (req, res, next) => {
     }
 }
 
+module.exports.updateUserByAdmin = async (req, res, next) => {
+    try {
+        const user = req.body;
+        await User.update(user, {where: {id: req.body.id}});
+        res.send("updated");
+    } catch (e) {
+        next(e);
+    }
+};

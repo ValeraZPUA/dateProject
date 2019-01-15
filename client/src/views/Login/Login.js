@@ -3,11 +3,15 @@ import {LOGIN} from '../../../constants'
 
 export default {
   name: 'Login',
-  components: {
-
+  components: {},
+  data() {
+    return {
+      email: '',
+      password: ''
+    }
   },
   created() {
-    this[LOGIN]({email: 'test@gmail.com', password: 'password'})
+
   },
   computed: {
     ...mapState({
@@ -17,6 +21,13 @@ export default {
     })
   },
   methods: {
+    handle() {
+      this.email = this.$refs.email.value
+      this.password = this.$refs.password.value
+    },
+    submit() {
+      this[LOGIN]({email: this.email, password: this.password})
+    },
     ...mapActions([LOGIN])
   }
 }

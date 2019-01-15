@@ -6,9 +6,9 @@ export default {
   components: {},
   created() {
     this[NEW_USER]({
-      firstName: 'sdfasdfssdffsdfsdffsdf',
-      lastName: 'LastName',
-      email: 'sdfaasdfasdfsdfssdf@gmail.com',
+      firstName: 'Name3',
+      lastName: 'LastName3',
+      email: 'test3@gmail.com',
       password: 'password',
       gender: 'man',
       birthday: '2001-01-04',

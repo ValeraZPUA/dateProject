@@ -9,9 +9,6 @@ export default {
       namePhoto: ''
     }
   },
-  created() {
-
-  },
   computed: {
     ...mapState({
       photos: state => state.photoMod.photos,
@@ -21,7 +18,7 @@ export default {
   },
   methods: {
     handleFileUpload() {
-      this.namePhoto = this.$refs.imgName.value;
+      this.namePhoto = this.$refs.imgName.value
     },
     submitFile() {
       this[DELETE_PHOTO](this.namePhoto)

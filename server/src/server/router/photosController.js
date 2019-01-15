@@ -1,5 +1,5 @@
 import multer from 'multer';
-import {Photo} from "../models";
+import {Photo, User} from "../models";
 import fs from 'fs';
 import path from 'path';
 
@@ -10,8 +10,9 @@ module.exports.uploadPhoto = async (req, res, next) => {
             destination: './public/img/',
             filename: function ( req, file, cb ) {
                 const namePhoto = req.params.id + '-id-' + Date.now() + '-' + file.originalname;
+                const url = 'http://localhost:3000/' + namePhoto;
                 cb( null, namePhoto);
-                Photo.create({userID: req.params.id, photoName: namePhoto});
+                Photo.create({userID: req.params.id, photoName: namePhoto, url: url});
             }
         });
         const upload = multer({
@@ -88,52 +89,17 @@ module.exports.getAllPhotos = async (req, res, next) => {
     console.log("HERE");
 
     try {
-
-        const imgURL = {url: 'http://localhost:3000/25-id-1547478817267-001-aeroplane.png'};
-        //const imgURL = 'http://localhost:3000/25-id-1547478817267-001-aeroplane.png';
-        res.send(imgURL);
+        const photo = await Photo.findAll({where: {userID: req.user.id}});
+        res.send(photo);
     } catch (e) {
         next(e);
     }
 
 
-    //fs.readFile('../../public/pexels-photo-46710.jpeg');
-
-    //const folders = fs.readdirSync('../../public/');
-
-    // const objArray = [];
-    // objArray.push(fs.readdirSync('../../public/pexels-photo-46710.jpeg'));
-    // console.log(objArray[0])
-
-    //
-    // folders.forEach((folder) => {
-    //     const obj    = {};
-    //     const files  = fs.readdirSync('../../public/' + folder);
-    //     obj.folder = folder;
-    //     obj.files  = files;
-    //     objArray.push(obj);
-    //     console.log(objArray[0])
-    // });
-    // console.log(objArray[0])
-    //res.render('index', { data: JSON.stringify(objArray) });
-
-
-    //res.sendFile('/server/src/public/pexels-photo-46710.jpeg');
-
-
-    //const path = path.join(__dirname, '../../public/', 'pexels-photo-46710.jpeg');
-    // res.sendFile(path.join(__dirname, '../../public/', 'pexels-photo-46710.jpeg'), {
-    //     bufferSize: 10240
-    // });
-
-
-    //res.sendFile('/src/public/pexels-photo-46710.jpeg');
-
-
     // try {
     //
-    //     const photo = await Photo.findAll();
-    //     res.send(photo);
+    //     const imgURL = {url: 'http://localhost:3000/25-id-1547538085515-001-aeroplane.png'};
+    //     res.send(imgURL);
     // } catch (e) {
     //     next(e);
     // }

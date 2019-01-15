@@ -24,8 +24,8 @@ export const updateUser = (formData) => axios.put(restURL + '/user/' + id.params
 export const deleteUser = () => axios.delete(restURL + '/user/' + id.params.id, auth)
 
 export const uploadPhoto = (formData) => {
-  const bodyFormData = new FormData();
-  bodyFormData.append("image", formData);
+  const bodyFormData = new FormData()
+  bodyFormData.append('image', formData)
   return axios.post(restURL + '/photo/upload/' + id.params.id, bodyFormData, auth)
 }
 
@@ -38,7 +38,4 @@ export const updatePhoto = (formData) => axios.put(restURL + '/photo/update/' + 
   formData,
   auth)
 
-export const getUserPhotos = () => axios.get(restURL + '/photo/get/' + id.params.id, auth)
-
-export const getAllPhotos = () => axios.get(restURL + '/photo/get', auth)
-
+export const getCurrentUserAllPhotos = () => axios.get(restURL + '/photo/get/' + id.params.id, auth)

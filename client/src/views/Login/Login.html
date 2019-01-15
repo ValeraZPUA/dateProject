@@ -2,4 +2,13 @@
     <div v-if="isFetching">
         Loading...
     </div>
+    <div class="data">
+        <label> E-mail:
+            <input type="text" ref="email" @change="handle()"/> <br>
+        </label>
+        <label> Password:
+            <input type="text" ref="password" @change="handle()"/> <br>
+        </label>
+        <button @click="submit()">Submit</button>
+    </div>
 </div>

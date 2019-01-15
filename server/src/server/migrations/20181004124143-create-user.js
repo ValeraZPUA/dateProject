@@ -33,9 +33,19 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      status: {
-        type: Sequelize.STRING,
-        allowNull: true,
+        // status: {
+        //   type: Sequelize.STRING,
+        //   allowNull: true,
+        // },
+        isActive: {
+            type: Sequelize.BOOLEAN,
+            allowNull: false,
+            defaultValue: true
+        },
+        isBanned: {
+            type: Sequelize.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
       },
       gender: {
         type: Sequelize.STRING,

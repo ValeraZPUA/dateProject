@@ -11,8 +11,7 @@ import {
   uploadPhoto,
   deletePhoto,
   updatePhoto,
-  getUserPhotos,
-  getAllPhotos
+  getCurrentUserAllPhotos
 } from './api/rest/usersService'
 
 Vue.use(Vuex)
@@ -28,7 +27,7 @@ const authModule = {
       state.isFetching = true
     },
     [constants.LOGIN_RESPONSE](state, users) {
-      state.users = users;
+      state.users = users
       localStorage.setItem('Access Token', state.users.token)
       localStorage.setItem('id', state.users.user.id)
       localStorage.setItem('role', state.users.user.role)
@@ -111,9 +110,9 @@ const userModule = {
     },
     [constants.DELETE_USER_RESPONSE](state, users) {
       state.users = users
-      localStorage.removeItem('Access Token');
-      localStorage.removeItem('id');
-      localStorage.removeItem('role');
+      localStorage.removeItem('Access Token')
+      localStorage.removeItem('id')
+      localStorage.removeItem('role')
       state.isFetching = false
       state.error = null
     },
@@ -234,7 +233,7 @@ const photoModule = {
     async [constants.PHOTO]({commit}) {
       commit(constants.PHOTO_REQUEST)
       try {
-        const {data} = await getAllPhotos()
+        const {data} = await getCurrentUserAllPhotos()
         commit(constants.PHOTO_RESPONSE, data)
       } catch (e) {
         commit(constants.PHOTO_ERRORS, e)

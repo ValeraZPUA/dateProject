@@ -25,7 +25,6 @@ export default {
     },
     submitFile() {
       this[NEW_PHOTO](this.file)
-      console.log(this.file)
     },
     ...mapActions([NEW_PHOTO])
   }

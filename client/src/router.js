@@ -13,19 +13,21 @@ import Photos from './views/Photos/Photos.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
       name: 'startpage',
-      component: StartPage
+      component: StartPage,
+      meta: {enterFlag: true}
     },
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+      meta: {enterFlag: true}
     },
     {
       path: '/users',
@@ -69,3 +71,17 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (!to.matched.some(record => record.meta.enterFlag)) {
+    if (localStorage.getItem('Access Token')) {
+      next()
+    } else {
+      next({path: '/login'})
+    }
+  } else {
+    next()
+  }
+})
+
+export default router

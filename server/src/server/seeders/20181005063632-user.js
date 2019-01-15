@@ -9,7 +9,7 @@ module.exports = {
         lastName: 'Bieber',
         email: 'justin@gmail.com',
         gender: 'man',
-        password: bcrypt.hashSync('1qaz2w3e4r', bcrypt.genSaltSync(8)),
+        password: bcrypt.hashSync('password', bcrypt.genSaltSync(8)),
         createdAt: new Date(),
         updatedAt: new Date(),
         birthday: moment().subtract(18, 'year').format('YYYY-MM-DD'),

@@ -41,9 +41,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
-    status: {
-      type: DataTypes.STRING,
-      allowNull: true
+      // status: {
+      //   type: DataTypes.STRING,
+      //   allowNull: true
+      // },
+      isActive: {
+          type: DataTypes.BOOLEAN,
+          allowNull: false,
+          defaultValue: true
+      },
+      isBanned: {
+          type: DataTypes.BOOLEAN,
+          allowNull: false,
+          defaultValue: false
     },
     gender: {
       type: DataTypes.STRING,

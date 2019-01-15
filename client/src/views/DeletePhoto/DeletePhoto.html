@@ -1,4 +1,7 @@
 <div class="container">
+    <div v-if="isFetching">
+        Loading...
+    </div>
     <div class="large-12 medium-12 small-12 cell">
         <label>Image Name
             <input type="text" id="name" ref="imgName" @change="handleFileUpload()"/>
