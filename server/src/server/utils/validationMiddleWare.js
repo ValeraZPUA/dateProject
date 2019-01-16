@@ -4,6 +4,7 @@ const moment = require('moment');
 module.exports.filters = (req, res, next) => {
     const parameters = req.query;
     const filterArray = [];
+    filterArray.push({role: "user", isBanned: false, isActive: true});
     if (parameters.firstName) {
         filterArray.push({firstName: parameters.firstName});
     }
@@ -14,7 +15,7 @@ module.exports.filters = (req, res, next) => {
         filterArray.push({gender: parameters.gender});
     }
     if (parameters.intention) {
-        filterArray.push({intention: parameters.intention})
+        filterArray.push({intention: parameters.intention});
     }
     if (parameters.minAge) {
         filterArray.push({birthday: {[sequelize.Op.lte]: moment().subtract(parameters.minAge, "year").format("YYYY-MM-DD")}});

@@ -5,7 +5,7 @@ export default {
   name: 'DeleteUser',
   components: {},
   created() {
-    this[DELETE_USER]()
+
   },
   computed: {
     ...mapState({
@@ -15,6 +15,9 @@ export default {
     })
   },
   methods: {
+    submit() {
+      this[DELETE_USER]()
+    },
     ...mapActions([DELETE_USER])
   }
 }

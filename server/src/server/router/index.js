@@ -6,7 +6,6 @@ const userController = require('./userController');
 const photosController = require('./photosController');
 const authRequired = require('../utils/authRequired');
 const roleCheck = require('../utils/roleCheck');
-const adminModerCheck = require('../utils/adminModerCheck');
 
 const router = express.Router();
 

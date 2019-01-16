@@ -6,14 +6,13 @@ export default {
   components: {},
   created() {
     this[NEW_USER]({
-      firstName: 'Name3',
-      lastName: 'LastName3',
-      email: 'test3@gmail.com',
+      firstName: 'Vit9',
+      lastName: 'Kek',
+      email: 'kek@gmail.com',
       password: 'password',
       gender: 'man',
-      birthday: '2001-01-04',
-      intention: 'friendship',
-      role: 'user'
+      birthday: '1980-03-15',
+      intention: 'date'
     })
   },
   computed: {

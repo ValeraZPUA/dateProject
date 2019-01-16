@@ -10,6 +10,7 @@ import UploadPhoto from './views/UploadPhoto/UploadPhoto.vue'
 import DeletePhoto from './views/DeletePhoto/DeletePhoto.vue'
 import UpdatePhoto from './views/UpdatePhoto/UpdatePhoto.vue'
 import Photos from './views/Photos/Photos.vue'
+import UserProfile from './views/UserProfile/UserProfile.vue'
 
 Vue.use(Router)
 
@@ -37,7 +38,8 @@ const router = new Router({
     {
       path: '/newuser',
       name: 'newuser',
-      component: NewUser
+      component: NewUser,
+      meta: {enterFlag: true}
     },
     {
       path: '/updateuser',
@@ -68,6 +70,11 @@ const router = new Router({
       path: '/photos',
       name: 'photos',
       component: Photos
+    },
+    {
+      path: '/user/:id',
+      name: 'user',
+      component: UserProfile
     }
   ]
 })

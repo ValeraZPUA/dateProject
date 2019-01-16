@@ -2,4 +2,35 @@
     <div v-if="isFetching">
         Loading...
     </div>
+    <div class="contant">
+        <label> E-mail:
+            <input type="text" ref="email" @change="handle()"/> <br>
+        </label>
+        <label> Password:
+            <input type="text" ref="password" @change="handle()"/> <br>
+        </label>
+        <label> First Name:
+            <input type="text" ref="firstName" @change="handle()"/> <br>
+        </label>
+        <label> Last Name:
+            <input type="text" ref="lastName" @change="handle()"/> <br>
+        </label>
+        <label> Gender:
+            <select name="gender" ref="gender" size="1">
+                <option>Male</option>
+                <option>Female</option>
+                <option>Unknown</option>
+            </select> <br>
+        </label>
+        <label> Birthday:
+            <input type="text" ref="birthday" @change="handle()"/> <br>
+        </label>
+        <label> Intention:
+            <select name="intention" ref="intention" size="1">
+                <option>Date</option>
+                <option>Friendship</option>
+            </select><br>
+        </label>
+        <button @click="submit()">Submit</button>
+    </div>
 </div>

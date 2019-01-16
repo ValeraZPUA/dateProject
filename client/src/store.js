@@ -150,6 +150,9 @@ const userModule = {
       }
     },
     async [constants.UPDATE_USER]({commit}, formData) {
+      console.log('>>>>>>>>>>>', formData)
+      const firstName = formData[0].firstName
+      console.log('firstName', firstName)
       commit(constants.UPDATE_USER_REQUEST)
       try {
         const {data} = await updateUser(formData)
@@ -169,7 +172,7 @@ const userModule = {
     }
   },
   getters: {
-    [constants.GET_USER_BY_ID]: state => id => state.users.find(u => u._id === id)
+    [constants.GET_USER_BY_ID]: state => id => state.users.find(u => u.id === id)
   }
 }
 
