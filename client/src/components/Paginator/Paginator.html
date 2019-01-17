@@ -1,0 +1,23 @@
+<div id="app">
+    <div class="content">
+        <ul>
+            <li v-for="p in paginatedData" @click="$router.push('/user/' + p.id)">
+                <UserItem :current="p"></UserItem>
+            </li>
+        </ul>
+    </div>
+
+    <div class="buttons">
+        <button
+                :disabled="pageNumber === 0"
+                @click="prevPage">
+            Previous
+        </button>
+        <button
+                :disabled="pageNumber >= pageCount -1"
+                @click="nextPage">
+            Next
+        </button>
+    </div>
+
+</div>

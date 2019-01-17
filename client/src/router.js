@@ -11,6 +11,7 @@ import DeletePhoto from './views/DeletePhoto/DeletePhoto.vue'
 import UpdatePhoto from './views/UpdatePhoto/UpdatePhoto.vue'
 import Photos from './views/Photos/Photos.vue'
 import UserProfile from './views/UserProfile/UserProfile.vue'
+import UsersPag from './views/UsersPag/UsersPag.vue'
 
 Vue.use(Router)
 
@@ -75,7 +76,12 @@ const router = new Router({
       path: '/user/:id',
       name: 'user',
       component: UserProfile
-    }
+    },
+    {
+      path: '/userspag',
+      name: 'userspag',
+      component: UsersPag
+    },
   ]
 })
 

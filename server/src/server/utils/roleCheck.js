@@ -17,7 +17,7 @@ module.exports = exports = async (req, res, next) => {
         }
         if (req.params.photoName) {
             const idFromPhotoName = req.params.photoName.split('-')[0];
-            if (idFromPhotoName !== targetId) {
+            if (idFromPhotoName !== targetId && currentUserRole !== "admin") {
                 return next("Access deny");
             }
         }

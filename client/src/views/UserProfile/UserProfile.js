@@ -13,7 +13,6 @@ export default {
     }),
     ...mapGetters([GET_USER_BY_ID]),
     user() {
-      console.log(this[GET_USER_BY_ID](parseInt(this.$route.params.id)))
       return JSON.parse(JSON.stringify(this[GET_USER_BY_ID](parseInt(this.$route.params.id))))
     }
   },

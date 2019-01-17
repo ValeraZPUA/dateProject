@@ -1,8 +1,6 @@
 import multer from 'multer';
 import {Photo, User} from "../models";
 import fs from 'fs';
-import path from 'path';
-
 
 module.exports.uploadPhoto = async (req, res, next) => {
     try {
