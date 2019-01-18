@@ -7,7 +7,9 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      //arr: []
+      arr: {}
     }
   },
   created() {
@@ -26,7 +28,24 @@ export default {
       this.password = this.$refs.password.value
     },
     submit() {
-      this[LOGIN]({email: this.email, password: this.password})
+      // this[LOGIN]({email: this.email, password: this.password})
+      // this.$router.push('/')
+
+      // this.arr.push({email: this.email})
+      // this.arr.push({password: this.password})
+
+      if (this.email) {
+        this.arr.email = this.email
+      } else {
+        delete this.arr.email
+      }
+      if (this.password) {
+        this.arr.password = this.password
+      } else {
+        delete this.arr.password
+      }
+      this[LOGIN](this.arr)
+      this.$router.push('/')
     },
     ...mapActions([LOGIN])
   }

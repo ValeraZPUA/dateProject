@@ -20,7 +20,6 @@
       <router-link to="/updatephoto">Update Photo</router-link>
       |
       <router-link to="/photos">Photos</router-link>
-      |
     </div>
     <router-view/>
   </div>

@@ -53,7 +53,9 @@ module.exports.updatePhoto = async (req, res, next) => {
             filename: function ( req, file, cb ) {
                 const newPhotoName = req.params.id + '-id-' + Date.now() + '-' + file.originalname;
                 cb( null, newPhotoName);
-                const updatedPhoto = {photoName: newPhotoName, updateAt: Date.now()};
+                const url = 'http://localhost:3000/' + newPhotoName;
+                const updatedPhoto = {photoName: newPhotoName, updateAt: Date.now(), url: url};
+
                 Photo.update(updatedPhoto, {where: {photoName: photo[0].photoName}});
             }
         });

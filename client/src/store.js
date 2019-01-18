@@ -13,6 +13,7 @@ import {
   updatePhoto,
   getCurrentUserAllPhotos
 } from './api/rest/usersService'
+//import * as userService from './api/rest/usersService'
 
 Vue.use(Vuex)
 
@@ -150,9 +151,6 @@ const userModule = {
       }
     },
     async [constants.UPDATE_USER]({commit}, formData) {
-      console.log('>>>>>>>>>>>', formData)
-      const firstName = formData[0].firstName
-      console.log('firstName', firstName)
       commit(constants.UPDATE_USER_REQUEST)
       try {
         const {data} = await updateUser(formData)

@@ -1,36 +1,38 @@
 <div class="container">
-    <div v-if="isFetching">
-        Loading...
-    </div>
-    <div class="contant">
-        <label> E-mail:
-            <input type="text" ref="email" @change="handle()"/> <br>
+
+    <div class="content">
+        <label>
+            <span>E-mail:</span>
+            <input type="text" ref="email" @change="handle()"/>
         </label>
-        <label> Password:
-            <input type="text" ref="password" @change="handle()"/> <br>
+        <label>
+            <span>Password:</span>
+            <input type="text" ref="password" @change="handle()"/>
         </label>
         <label> First Name:
-            <input type="text" ref="firstName" @change="handle()"/> <br>
+            <input type="text" ref="firstName" @change="handle()"/>
         </label>
         <label> Last Name:
-            <input type="text" ref="lastName" @change="handle()"/> <br>
+            <input type="text" ref="lastName" @change="handle()"/>
         </label>
         <label> Gender:
-            <select name="gender" ref="gender" size="1">
+            <select name="gender" ref="gender" size="1" @change="handle()">
+                <option></option>
                 <option>Male</option>
                 <option>Female</option>
                 <option>Unknown</option>
-            </select> <br>
+            </select>
         </label>
         <label> Birthday:
-            <input type="text" ref="birthday" @change="handle()"/> <br>
+            <date-pick v-model="birthday" ref="birthday" @change="handle()"></date-pick>
         </label>
         <label> Intention:
-            <select name="intention" ref="intention" size="1">
+            <select name="intention" ref="intention" size="1" @change="handle()">
+                <option></option>
                 <option>Date</option>
                 <option>Friendship</option>
-            </select><br>
+            </select>
         </label>
-        <button @click="submit()">Submit</button>
+        <button @click="submit()">Update User</button>
     </div>
 </div>
