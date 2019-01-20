@@ -4,7 +4,12 @@ const moment = require('moment');
 module.exports.filters = (req, res, next) => {
     const parameters = req.query;
     const filterArray = [];
-    filterArray.push({role: "user", isBanned: false, isActive: true});
+    if (req.user.role == 'moderator' ) {
+        //filterArray.push({role: "$ne: admin"});
+        filterArray.push({role: "user"});
+    } else {
+        filterArray.push({role: "user", isBanned: false, isActive: true});
+    }
     if (parameters.firstName) {
         filterArray.push({firstName: parameters.firstName});
     }

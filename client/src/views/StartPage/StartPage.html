@@ -1,5 +1,7 @@
 <div class="container">
     <div class="inner">
-        <p>Start Page</p>
+        <a href="http://localhost:8080/login" v-show="!isLogin">Login</a> <br>
+        <a href="http://localhost:8080/newuser" v-show="!isLogin">Registration</a>
+        <a href="http://localhost:8080/" v-show="isLogin" @click="logout()">Logout</a>
     </div>
 </div>

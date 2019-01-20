@@ -1,5 +1,5 @@
 import multer from 'multer';
-import {Photo, User} from "../models";
+import {Photo} from "../models";
 import fs from 'fs';
 
 module.exports.uploadPhoto = async (req, res, next) => {
@@ -94,14 +94,14 @@ module.exports.getAllPhotos = async (req, res, next) => {
     } catch (e) {
         next(e);
     }
-
-
-    // try {
-    //
-    //     const imgURL = {url: 'http://localhost:3000/25-id-1547538085515-001-aeroplane.png'};
-    //     res.send(imgURL);
-    // } catch (e) {
-    //     next(e);
-    // }
 };
 
+module.exports.getPhotoById = async (req, res, next) => {
+    try {
+        console.log("SERVER getPhotoById")
+        const photo = await Photo.findById(req.params.id)
+        res.send(photo);
+    } catch (e) {
+        next(e);
+    }
+};

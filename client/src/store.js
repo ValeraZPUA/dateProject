@@ -1,19 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import * as constants from '../constants.js'
-import {
-  getAllUsers,
-  getUserById,
-  login,
-  createUser,
-  updateUser,
-  deleteUser,
-  uploadPhoto,
-  deletePhoto,
-  updatePhoto,
-  getCurrentUserAllPhotos
-} from './api/rest/usersService'
-//import * as userService from './api/rest/usersService'
+import * as userService from './api/rest/usersService'
 
 Vue.use(Vuex)
 
@@ -44,7 +32,7 @@ const authModule = {
     async [constants.LOGIN]({commit}, formData) {
       commit(constants.LOGIN_REQUEST)
       try {
-        const {data} = await login(formData)
+        const {data} = await userService.login(formData)
         commit(constants.LOGIN_RESPONSE, data)
       } catch (e) {
         commit(constants.LOGIN_ERRORS, e)
@@ -106,6 +94,13 @@ const userModule = {
       state.error = error
       state.isFetching = false
     },
+    [constants.UPDATE_USER_REQUEST_BY_ADMIN](state) {
+      state.isFetching = true
+    },
+    [constants.UPDATE_USER_ERRORS_BY_ADMIN](state, error) {
+      state.error = error
+      state.isFetching = false
+    },
     [constants.DELETE_USER_REQUEST](state) {
       state.isFetching = true
     },
@@ -126,7 +121,7 @@ const userModule = {
     async [constants.USERS]({commit}) {
       commit(constants.USERS_REQUEST)
       try {
-        const {data} = await getAllUsers()
+        const {data} = await userService.getAllUsers()
         commit(constants.USERS_RESPONSE, data)
       } catch (e) {
         commit(constants.USERS_ERRORS, e)
@@ -135,7 +130,7 @@ const userModule = {
     async [constants.USER_BY_ID]({commit}, id) {
       commit(constants.USERS_REQUEST)
       try {
-        const {data} = await getUserById(id)
+        const {data} = await userService.getUserById(id)
         commit(constants.SINGLE_USER_RESPONSE, data)
       } catch (e) {
         commit(constants.USERS_ERRORS, e)
@@ -144,7 +139,7 @@ const userModule = {
     async [constants.NEW_USER]({commit}, formData) {
       commit(constants.NEW_USER_REQUEST)
       try {
-        const {data} = await createUser(formData)
+        const {data} = await userService.createUser(formData)
         commit(constants.NEW_USER_RESPONSE, data)
       } catch (e) {
         commit(constants.NEW_USER_ERRORS, e)
@@ -153,16 +148,24 @@ const userModule = {
     async [constants.UPDATE_USER]({commit}, formData) {
       commit(constants.UPDATE_USER_REQUEST)
       try {
-        const {data} = await updateUser(formData)
+        const {data} = await userService.updateUser(formData)
         commit(constants.UPDATE_USER_RESPONSE, data)
       } catch (e) {
         commit(constants.UPDATE_USER_ERRORS, e)
       }
     },
+    async [constants.UPDATE_USER_BY_ADMIN]({commit}, formData) {
+      commit(constants.UPDATE_USER_REQUEST_BY_ADMIN)
+      try {
+        const {data} = await userService.updateUserByAdmin(formData)
+      } catch (e) {
+        commit(constants.UPDATE_USER_ERRORS_BY_ADMIN, e)
+      }
+    },
     async [constants.DELETE_USER]({commit}) {
       commit(constants.DELETE_USER_REQUEST)
       try {
-        const {data} = await deleteUser()
+        const {data} = await userService.deleteUser()
         commit(constants.DELETE_USER_RESPONSE, data)
       } catch (e) {
         commit(constants.DELETE_USER_ERRORS, e)
@@ -228,14 +231,33 @@ const photoModule = {
     [constants.UPDATE_PHOTO_ERRORS](state, error) {
       state.error = error
       state.isFetching = false
+    },
+    [constants.SINGLE_PHOTO_RESPONSE](state, photo) {
+      const photoIndex = state.photos.findIndex(p => p._id === photo._id)
+      if (photoIndex === -1) {
+        state.users.push(photo)
+      } else {
+        state.users[photoIndex] = {...state.photos[photoIndex], ...photo}
+      }
+      state.isFetching = false
+      state.error = null
     }
   },
   actions: {
     async [constants.PHOTO]({commit}) {
       commit(constants.PHOTO_REQUEST)
       try {
-        const {data} = await getCurrentUserAllPhotos()
+        const {data} = await userService.getCurrentUserAllPhotos()
         commit(constants.PHOTO_RESPONSE, data)
+      } catch (e) {
+        commit(constants.PHOTO_ERRORS, e)
+      }
+    },
+    async [constants.PHOTO_BY_ID]({commit}, id) {
+      commit(constants.PHOTO_REQUEST)
+      try {
+        const {data} = await userService.getPhotoById(id)
+        commit(constants.SINGLE_PHOTO_RESPONSE, data)
       } catch (e) {
         commit(constants.PHOTO_ERRORS, e)
       }
@@ -243,7 +265,7 @@ const photoModule = {
     async [constants.NEW_PHOTO]({commit}, formData) {
       commit(constants.NEW_PHOTO_REQUEST)
       try {
-        const {data} = await uploadPhoto(formData)
+        const {data} = await userService.uploadPhoto(formData)
         commit(constants.NEW_PHOTO_RESPONSE, data)
       } catch (e) {
         commit(constants.NEW_PHOTO_ERRORS, e)
@@ -252,7 +274,7 @@ const photoModule = {
     async [constants.DELETE_PHOTO]({commit}, namePhoto) {
       commit(constants.DELETE_PHOTO_REQUEST)
       try {
-        const {data} = await deletePhoto(namePhoto)
+        const {data} = await userService.deletePhoto(namePhoto)
         commit(constants.DELETE_PHOTO_RESPONSE, data)
       } catch (e) {
         commit(constants.DELETE_PHOTO_ERRORS, e)
@@ -261,12 +283,15 @@ const photoModule = {
     async [constants.UPDATE_PHOTO]({commit}, formData) {
       commit(constants.UPDATE_PHOTO_REQUEST)
       try {
-        const {data} = await updatePhoto(formData)
+        const {data} = await userService.updatePhoto(formData)
         commit(constants.UPDATE_PHOTO_RESPONSE, data)
       } catch (e) {
         commit(constants.UPDATE_PHOTO_ERRORS, e)
       }
     }
+  },
+  getters: {
+    [constants.GET_PHOTO_BY_ID]: state => id => state.photos.find(p => p.id === id)
   }
 }
 

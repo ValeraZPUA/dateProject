@@ -22,6 +22,7 @@ router.post('/api/photo/upload/:id', authRequired, roleCheck, photosController.u
 router.delete('/api/photo/delete/:id&:photoName', authRequired, roleCheck, photosController.deletePhoto);
 router.put('/api/photo/update/:id&:photoName', authRequired, roleCheck, photosController.updatePhoto);
 router.get('/api/photo/get/:id', authRequired, roleCheck, photosController.getAllPhotos);
+router.get('/api/photo/get/:id', authRequired, roleCheck, photosController.getPhotoById);
 
 module.exports = router;
 

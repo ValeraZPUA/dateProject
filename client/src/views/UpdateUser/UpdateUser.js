@@ -6,7 +6,7 @@ import 'vue-date-pick/dist/vueDatePick.css';
 export default {
   name: 'UpdateUser',
   components: {
-    DatePick
+   DatePick
   },
   data() {
     return {
@@ -42,41 +42,47 @@ export default {
     submit() {
       if (this.email) {
         this.arr.email = this.email
+        this.$refs.email.value = ''
       } else {
         delete this.arr.email
       }
       if (this.password) {
         this.arr.password = this.password
+        this.$refs.password.value = ''
       } else {
         delete this.arr.password
       }
       if (this.firstName) {
         this.arr.firstName = this.firstName
+        this.$refs.firstName.value = ''
       } else {
         delete this.arr.firstName
       }
       if (this.lastName) {
         this.arr.lastName = this.lastName
+        this.$refs.lastName.value =''
       } else {
         delete this.arr.lastName
       }
       if (this.gender) {
         this.arr.gender = this.gender
+        this.$refs.gender.value = ''
       } else {
         delete this.arr.gender
       }
       if (this.birthday) {
         this.arr.birthday = this.birthday
+        this.$refs.birthday.value = ''
       } else {
         delete this.arr.birthday
       }
       if (this.intention) {
         this.arr.intention = this.intention
+        this.$refs.intention.value = ''
       } else {
         delete this.arr.intention
       }
       this[UPDATE_USER](this.arr)
-      location.reload()
     },
     ...mapActions([UPDATE_USER])
   }

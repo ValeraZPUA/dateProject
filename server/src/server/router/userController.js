@@ -6,8 +6,13 @@ import * as jwt from 'jsonwebtoken';
 module.exports.getAllUsers = async (req, res, next) => {
     try {
         const fltr = req.paramsFilter;
-        const user = await User.findAll({where: fltr});
-        res.send(user);
+        if (req.user.role == 'admin' ) {
+            const user = await User.findAll({$and: [{role: "user"}, {role: "moderator"}]});
+            res.send(user);
+        } else {
+            const user = await User.findAll({where: fltr});
+            res.send(user);
+        }
     } catch (e) {
         next(e);
     }
@@ -54,32 +59,11 @@ module.exports.deleteUser = async (req, res, next) => {
 
 module.exports.login = async (req, res, next) => {
     const {email, password} = req.body;
-
-
-    // const bd = req.body;
-    // console.log(bd)
-    // console.log(bd[0].email)
-    // console.log(bd[1].password)
-
-    // const bd = req.body;
-    // console.log(bd)
-
     try {
         const user = await User.find({where: {email}});
-
-        //const user = await User.find({where: {email: bd[0].email}});
-
-        //const user = await User.find({where: {email: bd.email}});
-
-
         if(!user) throw new Error("Email or password is not valid");
-
-
         const isPasswordValid = await bcrypt.compare(password, user.password);
-
-        //const isPasswordValid = await bcrypt.compare(bd[1].password, user.password);
         if(!isPasswordValid) throw new Error("Email or password is not valid");
-
         const token = await jwt.sign(
             {uid: user.id, type: 'access', role: user.role},
             'verysecretkey',

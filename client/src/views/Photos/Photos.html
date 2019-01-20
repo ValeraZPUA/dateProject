@@ -1,11 +1,15 @@
 <div class="container">
-    <div v-if="isFetching">
-        Loading...
+    <div class="item">
+        <div v-for="photo in photos"
+             :key="photo.id">
+            <PhotoItem :current="photo"></PhotoItem>
+        </div>
     </div>
-    <div class="in"
-         v-for="photo in photos"
-         :key="photo._id">
-        <PhotoItem :current="photo"></PhotoItem>
+    <br>
+    <div class="input">
+        <label>File
+            <input type="file" id="file" ref="file" @change="handleFileUpload()"/>
+        </label>
+        <button @click="submitFile()">Submit</button>
     </div>
-
 </div>

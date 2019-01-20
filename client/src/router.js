@@ -1,16 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import NewUser from './views/NewUser/NewUser.vue'
-import Users from './views/Users/Users.vue'
 import Login from './views/Login/Login.vue'
 import StartPage from './views/StartPage/StartPage.vue'
 import UpdateUser from './views/UpdateUser/UpdateUser.vue'
 import DeleteUser from './views/DeleteUser/DeleteUser.vue'
-import UploadPhoto from './views/UploadPhoto/UploadPhoto.vue'
-import DeletePhoto from './views/DeletePhoto/DeletePhoto.vue'
 import UpdatePhoto from './views/UpdatePhoto/UpdatePhoto.vue'
 import Photos from './views/Photos/Photos.vue'
 import UserProfile from './views/UserProfile/UserProfile.vue'
+import PhotoProfile from './views/PhotoProfile/PhotoProfile.vue'
 import UsersPag from './views/UsersPag/UsersPag.vue'
 
 Vue.use(Router)
@@ -32,11 +30,6 @@ const router = new Router({
       meta: {enterFlag: true}
     },
     {
-      path: '/users',
-      name: 'users',
-      component: Users
-    },
-    {
       path: '/newuser',
       name: 'newuser',
       component: NewUser,
@@ -53,16 +46,6 @@ const router = new Router({
       component: DeleteUser
     },
     {
-      path: '/uploadphoto',
-      name: 'uploadphoto',
-      component: UploadPhoto
-    },
-    {
-      path: '/deletephoto',
-      name: 'deletephoto',
-      component: DeletePhoto
-    },
-    {
       path: '/updatephoto',
       name: 'updatephoto',
       component: UpdatePhoto
@@ -76,6 +59,11 @@ const router = new Router({
       path: '/user/:id',
       name: 'user',
       component: UserProfile
+    },
+    {
+      path: '/photo/get/:id',
+      name: 'photo',
+      component: PhotoProfile
     },
     {
       path: '/userspag',
