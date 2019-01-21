@@ -1,0 +1,42 @@
+<transition name="ModalWindow">
+    <div class="modal-mask">
+        <div class="modal-wrapper">
+            <div class="modal-container">
+                <div class="modal-header">
+                    <span>{{current.firstName}}</span> <br>
+
+                    <label> First Name:
+                        <input type="text" ref="firstName" @change="handle()"/>
+                    </label>
+                    <label> Last Name:
+                        <input type="text" ref="lastName" @change="handle()"/>
+                    </label>
+                    <label> Gender:
+                        <select name="gender" ref="gender" size="1" @change="handle()">
+                            <option></option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Unknown</option>
+                        </select>
+                    </label>
+                    <label> Intention:
+                        <select name="intention" ref="intention" size="1" @change="handle()">
+                            <option></option>
+                            <option>Date</option>
+                            <option>Friendship</option>
+                        </select>
+                    </label> <br>
+                    <button @click="submit()">Update User</button>
+                </div>
+                <div class="modal-footer">
+                    <slot name="footer">
+                        <button class="modal-default-button" @click="$emit('close')">
+                            Cancel
+                        </button>
+                    </slot>
+                </div>
+            </div>
+        </div>
+    </div>
+</transition>
+

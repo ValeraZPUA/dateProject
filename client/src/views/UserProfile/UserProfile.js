@@ -1,15 +1,18 @@
 import {mapState, mapActions, mapGetters} from 'vuex'
 import {USER_BY_ID, GET_USER_BY_ID, UPDATE_USER_BY_ADMIN} from '../../../constants'
+import ModalWindowEditByAdmin from '../../components/ModalWindowEditByAdmin/ModalWindowEditByAdmin.vue'
 
 export default {
   name: 'UserProfile',
   components: {
+    ModalWindowEditByAdmin
   },
   data () {
     return {
       isRole: false,
       isBanned: false,
-      u: ''
+      u: '',
+      showModal: false
     }
   },
   created() {

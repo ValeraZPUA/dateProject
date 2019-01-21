@@ -44,6 +44,7 @@ const authModule = {
 const userModule = {
   state: {
     users: [],
+    usr: '',
     isFetching: false,
     error: null
   },
@@ -61,15 +62,20 @@ const userModule = {
       state.isFetching = false
     },
     [constants.SINGLE_USER_RESPONSE](state, user) {
-      const userIndex = state.users.findIndex(u => u._id === user._id)
-      if (userIndex === -1) {
-        state.users.push(user)
-      } else {
-        state.users[userIndex] = {...state.users[userIndex], ...user}
-      }
+      state.usr = user
       state.isFetching = false
       state.error = null
     },
+    // [constants.SINGLE_USER_RESPONSE](state, user) {
+    //   const userIndex = state.users.findIndex(u => u._id === user._id)
+    //   if (userIndex === -1) {
+    //     state.users.push(user)
+    //   } else {
+    //     state.users[userIndex] = {...state.users[userIndex], ...user}
+    //   }
+    //   state.isFetching = false
+    //   state.error = null
+    // },
     [constants.NEW_USER_REQUEST](state) {
       state.isFetching = true
     },

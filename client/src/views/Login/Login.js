@@ -39,7 +39,6 @@ export default {
       }
       this[LOGIN](this.arr)
       this.$router.push('/')
-
     },
     ...mapActions([LOGIN])
   }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="todo-dev@localhost" uuid="bc49015f-f757-4a5f-b95c-6c74b0c29489">
+    <data-source source="LOCAL" name="todo-dev@localhost" uuid="95907332-e175-4866-a30d-d2bceaccadef">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>

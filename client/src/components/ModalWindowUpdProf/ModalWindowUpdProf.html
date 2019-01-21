@@ -1,0 +1,11 @@
+<transition name="ModalWindow">
+    <div class="modal-mask">
+        <div class="modal-footer">
+            <slot name="footer">
+                <button class="modal-default-button" @click="del()">OK</button>
+                <button class="modal-default-button" @click="$emit('close')">Cancel</button>
+            </slot>
+        </div>
+    </div>
+</transition>
+
