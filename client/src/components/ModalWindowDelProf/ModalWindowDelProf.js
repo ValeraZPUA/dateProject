@@ -4,7 +4,6 @@ import {DELETE_USER} from "../../../constants";
 export default {
   name: 'ModalWindowDelProf',
   props: {
-    //current: Object
   },
   data() {
     return {}
@@ -19,7 +18,7 @@ export default {
   methods: {
     del() {
       this[DELETE_USER]()
-      this.$router.push('/')
+      this.$router.replace('/login')
     },
     ...mapActions([DELETE_USER])
   }

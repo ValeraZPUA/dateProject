@@ -12,6 +12,7 @@ export default {
       lastName: '',
       gender: '',
       intention: '',
+      role: '',
       id: this.current.id,
       arr: {}
     }
@@ -22,6 +23,7 @@ export default {
       this.lastName = this.$refs.lastName.value
       this.gender = this.$refs.gender.value
       this.intention = this.$refs.intention.value
+      this.role = this.$refs.role.value
     },
     submit() {
       this.arr.id = this.id
@@ -48,6 +50,12 @@ export default {
         this.$refs.intention.value = ''
       } else {
         delete this.arr.intention
+      }
+      if (this.role) {
+        this.arr.role = this.role
+        this.$refs.role.value = ''
+      } else {
+        delete this.arr.role
       }
       this[UPDATE_USER_BY_ADMIN](this.arr)
       this.$router.push('/userspag')

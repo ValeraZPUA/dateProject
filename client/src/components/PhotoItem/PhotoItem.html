@@ -1,8 +1,12 @@
 <div class="container">
     <div class="element">
-        <img :src="current.url" alt="photo" >
-        <button @click="del()">del</button>
-        <button @click="showModal = true">open</button>
+        <div class="photo">
+            <img :src="current.url" alt="photo">
+        </div>
+        <div class="btns">
+            <button @click="del()">del</button>
+            <button @click="showModal = true">open</button>
+        </div>
         <ModalWindow v-if="showModal" @close="showModal = false" :current="current"> </ModalWindow>
     </div>
 </div>

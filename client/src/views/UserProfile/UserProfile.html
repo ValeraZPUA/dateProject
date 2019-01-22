@@ -3,18 +3,18 @@
 
     </div>
     <div>
-        <!--<img src="../../assets/photo.png">-->
         <p> First Name: {{user.firstName}} </p>
         <p> Last Name: {{user.lastName}} </p>
         <p> Gender: {{user.gender}} </p>
         <p> Birthday: {{user.birthday}} </p>
         <p> Intention: {{user.intention}} </p>
+        <p v-show="isRole"> Role: {{user.role}} </p>
         <span class="ban" v-show="isRole && isBanned">Banned</span>
     </div>
     <div>
         <button @click="ban()" v-show="isRole && !isBanned">ban</button>
         <button @click="unban()" v-show="isRole && isBanned">unban</button>
-        <button @click="showModal = true" v-show="isRole">edit</button>
+        <button @click="showModal = true" v-show="isAdmin">edit</button>
         <ModalWindowEditByAdmin v-if="showModal" @close="showModal = false" :current="u"></ModalWindowEditByAdmin>
     </div>
 </div>

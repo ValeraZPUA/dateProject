@@ -1,11 +1,17 @@
-<transition name="ModalWindow">
+<transition name="ModalWindowDelProd">
     <div class="modal-mask">
-        <div class="modal-footer">
-            <slot name="footer">
-                <button class="modal-default-button" @click="del()">OK</button>
-                <button class="modal-default-button" @click="$emit('close')">Cancel</button>
-            </slot>
+        <div class="modal-wrapper">
+            <div class="modal-container">
+                <div class="modal-header">
+                    <p>Are you sure?</p>
+                </div>
+                <div class="modal-footer">
+                    <slot name="footer">
+                        <button class="modal-default-button" @click="del()">OK</button>
+                        <button class="modal-default-button" @click="$emit('close')">Cancel</button>
+                    </slot>
+                </div>
+            </div>
         </div>
     </div>
 </transition>
-

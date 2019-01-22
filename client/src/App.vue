@@ -4,9 +4,6 @@
       <router-link to="/">Start page</router-link> |
       <router-link to="/userspag">Users</router-link> |
       <router-link to="/myprofile">My Profile</router-link>      |
-      <!--<router-link to="/updateuser">Update User</router-link> |-->
-      <!--<router-link to="/deleteuser">Delete User</router-link> |-->
-      <router-link to="/updatephoto">Update Photo</router-link> |
       <router-link to="/photos">Photos</router-link>
     </div>
     <router-view/>

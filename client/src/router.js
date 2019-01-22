@@ -3,9 +3,6 @@ import Router from 'vue-router'
 import NewUser from './views/NewUser/NewUser.vue'
 import Login from './views/Login/Login.vue'
 import StartPage from './views/StartPage/StartPage.vue'
-import UpdateUser from './views/UpdateUser/UpdateUser.vue'
-//import DeleteUser from './views/DeleteUser/DeleteUser.vue'
-import UpdatePhoto from './views/UpdatePhoto/UpdatePhoto.vue'
 import Photos from './views/Photos/Photos.vue'
 import UserProfile from './views/UserProfile/UserProfile.vue'
 import PhotoProfile from './views/PhotoProfile/PhotoProfile.vue'
@@ -35,21 +32,6 @@ const router = new Router({
       name: 'newuser',
       component: NewUser,
       meta: {enterFlag: true}
-    },
-    // {
-    //   path: '/updateuser',
-    //   name: 'updateuser',
-    //   component: UpdateUser
-    // },
-    // {
-    //   path: '/deleteuser',
-    //   name: 'deleteuser',
-    //   component: DeleteUser
-    // },
-    {
-      path: '/updatephoto',
-      name: 'updatephoto',
-      component: UpdatePhoto
     },
     {
       path: '/photos',

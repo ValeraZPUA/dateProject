@@ -36,13 +36,13 @@ export default {
       }
     },
     handleFileUpload() {
-      //this.namePhoto = this.$refs.nameToUpdate.value;
       this.file = this.$refs.newImage.files[0];
     },
     submitFile() {
       const formData = new FormData();
       formData.append('image', this.file);
       this[UPDATE_PHOTO](formData);
+      location.reload()
     },
     ...mapActions([UPDATE_PHOTO]),
     ...mapActions([USER_BY_ID])

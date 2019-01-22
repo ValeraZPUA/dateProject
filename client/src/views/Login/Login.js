@@ -8,7 +8,7 @@ export default {
     return {
       email: '',
       password: '',
-      arr: {}
+      emailAndPassword: {}
     }
   },
   created() {
@@ -28,17 +28,17 @@ export default {
     },
     submit() {
       if (this.email) {
-        this.arr.email = this.email
+        this.emailAndPassword.email = this.email
       } else {
-        delete this.arr.email
+        delete this.emailAndPassword.email
       }
       if (this.password) {
-        this.arr.password = this.password
+        this.emailAndPassword.password = this.password
       } else {
-        delete this.arr.password
+        delete this.emailAndPassword.password
       }
-      this[LOGIN](this.arr)
-      this.$router.push('/')
+      this[LOGIN](this.emailAndPassword)
+      this.$router.replace('/')
     },
     ...mapActions([LOGIN])
   }

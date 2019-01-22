@@ -32,19 +32,11 @@ module.exports.uploadPhoto = async (req, res, next) => {
 module.exports.uploadProfilePicture = async (req, res, next) => {
     try {
         const user = await User.findAll({where: {id: req.params.id}});
-
-        console.log(req.params.id)
-        console.log(user[0].profilePicture)
-
         if (user[0].profilePicture !== null) {
-            console.log('HERE 1')
             const imageName = user[0].profilePicture.split('/')[3];
-            console.log(imageName)
             const filePath = './public/img/' + imageName;
             fs.unlinkSync(filePath);
         }
-
-
         const storage = multer.diskStorage({
             destination: './public/img/',
             filename: function ( req, file, cb ) {

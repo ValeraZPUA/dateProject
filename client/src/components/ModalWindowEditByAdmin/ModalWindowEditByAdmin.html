@@ -26,13 +26,19 @@
                             <option>Friendship</option>
                         </select>
                     </label> <br>
-                    <button @click="submit()">Update User</button>
+                    <label> Role:
+                        <select name="role" ref="role" size="1" @change="handle()">
+                            <option></option>
+                            <option>user</option>
+                            <option>moderator</option>
+                        </select>
+                    </label> <br>
+
                 </div>
                 <div class="modal-footer">
                     <slot name="footer">
-                        <button class="modal-default-button" @click="$emit('close')">
-                            Cancel
-                        </button>
+                        <button class="modal-default-button" @click="submit()">Update User</button>
+                        <button class="modal-default-button" @click="$emit('close')">Cancel</button>
                     </slot>
                 </div>
             </div>

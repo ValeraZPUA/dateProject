@@ -1,5 +1,5 @@
 import {mapState, mapActions} from 'vuex'
-import {NEW_USER, UPDATE_USER} from '../../../constants'
+import {NEW_USER} from '../../../constants'
 import DatePick from 'vue-date-pick';
 import 'vue-date-pick/dist/vueDatePick.css';
 
@@ -17,7 +17,7 @@ export default {
       gender: '',
       birthday: '',
       intention: '',
-      arr: {},
+      data: {},
     }
   },
   created() {
@@ -40,48 +40,47 @@ export default {
     },
     submit() {
       if (this.email) {
-        this.arr.email = this.email
+        this.data.email = this.email
         this.$refs.email.value = ''
       } else {
-        delete this.arr.email
+        delete this.data.email
       }
       if (this.password) {
-        this.arr.password = this.password
+        this.data.password = this.password
         this.$refs.password.value = ''
       } else {
-        delete this.arr.password
+        delete this.data.password
       }
       if (this.firstName) {
-        this.arr.firstName = this.firstName
+        this.data.firstName = this.firstName
         this.$refs.firstName.value = ''
       } else {
-        delete this.arr.firstName
+        delete this.data.firstName
       }
       if (this.lastName) {
-        this.arr.lastName = this.lastName
+        this.data.lastName = this.lastName
         this.$refs.lastName.value =''
       } else {
-        delete this.arr.lastName
+        delete this.data.lastName
       }
       if (this.gender) {
-        this.arr.gender = this.gender
+        this.data.gender = this.gender
         this.$refs.gender.value = ''
       } else {
-        delete this.arr.gender
+        delete this.data.gender
       }
       if (this.birthday) {
-        this.arr.birthday = this.birthday
-        this.$refs.birthday.value = ''
+        this.data.birthday = this.birthday
       } else {
-        delete this.arr.birthday
+        delete this.data.birthday
       }
       if (this.intention) {
-        this.arr.intention = this.intention
+        this.data.intention = this.intention
         this.$refs.intention.value = ''
       } else {
-        delete this.arr.intention
+        delete this.data.intention
       }
-      this[NEW_USER](this.arr)
+      this[NEW_USER](this.data)
 
     },
     ...mapActions([NEW_USER])

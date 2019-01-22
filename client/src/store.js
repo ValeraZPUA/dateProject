@@ -241,9 +241,9 @@ const photoModule = {
     [constants.SINGLE_PHOTO_RESPONSE](state, photo) {
       const photoIndex = state.photos.findIndex(p => p._id === photo._id)
       if (photoIndex === -1) {
-        state.users.push(photo)
+        state.photos.push(photo)
       } else {
-        state.users[photoIndex] = {...state.photos[photoIndex], ...photo}
+        state.photos[photoIndex] = {...state.photos[photoIndex], ...photo}
       }
       state.isFetching = false
       state.error = null

@@ -12,11 +12,15 @@ export default {
       isRole: false,
       isBanned: false,
       u: '',
-      showModal: false
+      showModal: false,
+      isAdmin: false
     }
   },
   created() {
     this[USER_BY_ID](this.$route.params.id)
+    if (localStorage.getItem('role') == 'admin') {
+      this.isAdmin = true
+    }
     if (localStorage.getItem('role') == 'admin' || localStorage.getItem('role') == 'moderator') {
       this.isRole = true
     }
