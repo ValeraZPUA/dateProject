@@ -1,18 +1,28 @@
 <div class="container">
+    <div class="avatar" :style="getProfileUrl()">
+
+    </div>
     <div>
-        <img src="../../assets/photo.png">
+        <p><button @click="showModalAvatar = true">Upload Avatar</button></p>
+        <div class="updatePhoto" v-if="showModalAvatar">
+            <label>New Image
+                <input type="file" id="newImage" ref="newImage" @change="handleFileUpload()"/>
+            </label>
+            <button @click="submitFile()">Submit</button>
+        </div>
+        <!--<img src="../../assets/photo.png">-->
         <p> Email: {{user.email}} </p>
         <p> First Name: {{user.firstName}} </p>
         <p> Last Name: {{user.lastName}} </p>
         <p> Gender: {{user.gender}} </p>
         <p> Birthday: {{user.birthday}} </p>
         <p> Intention: {{user.intention}} </p>
-        <button @click="showModalDelete = true">Delete Profile</button>
-        <br>
-        <button @click="showModalUpdate = true">Update Info</button>
+        <p><button @click="showModalDelete = true">Delete Profile</button></p>
+        <p><button @click="showModalUpdate = true">Update Info</button></p>
 
 
         <ModalWindowDelProf v-if="showModalDelete" @close="showModalDelete = false"></ModalWindowDelProf>
+        <ModalWindowUpdProf v-if="showModalUpdate" @close="showModalUpdate = false"></ModalWindowUpdProf>
 
     </div>
 </div>

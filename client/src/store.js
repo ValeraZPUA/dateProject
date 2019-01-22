@@ -289,7 +289,7 @@ const photoModule = {
     async [constants.UPDATE_PHOTO]({commit}, formData) {
       commit(constants.UPDATE_PHOTO_REQUEST)
       try {
-        const {data} = await userService.updatePhoto(formData)
+        const {data} = await userService.uploadProfilePicture(formData)
         commit(constants.UPDATE_PHOTO_RESPONSE, data)
       } catch (e) {
         commit(constants.UPDATE_PHOTO_ERRORS, e)

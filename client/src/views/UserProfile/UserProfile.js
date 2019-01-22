@@ -41,6 +41,13 @@ export default {
       this[UPDATE_USER_BY_ADMIN]({id: this.u.id, isBanned: false})
       this.isBanned = false
     },
+    getProfileUrl () {
+      if (this.u.profilePicture) {
+        return { 'background-image': `url('${this.u.profilePicture}')` }
+      } else {
+        return { 'background-image': `url('https://static.thenounproject.com/png/994628-200.png')`}
+      }
+    },
     ...mapActions([USER_BY_ID]),
     ...mapActions([UPDATE_USER_BY_ADMIN])
   }

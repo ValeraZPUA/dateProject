@@ -1,6 +1,7 @@
 import {User} from '../models/index.js'
 import bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
+import multer from 'multer';
 
 
 module.exports.getAllUsers = async (req, res, next) => {

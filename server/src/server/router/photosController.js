@@ -1,5 +1,5 @@
 import multer from 'multer';
-import {Photo} from "../models";
+import {Photo, User} from "../models";
 import fs from 'fs';
 
 module.exports.uploadPhoto = async (req, res, next) => {
@@ -11,6 +11,48 @@ module.exports.uploadPhoto = async (req, res, next) => {
                 const url = 'http://localhost:3000/' + namePhoto;
                 cb( null, namePhoto);
                 Photo.create({userID: req.params.id, photoName: namePhoto, url: url});
+            }
+        });
+        const upload = multer({
+            storage: storage
+        }).any();
+
+        upload(req, res, function(err) {
+            if (err) {
+                return next(err);
+            } else {
+                res.send('uploaded');
+            }
+        });
+    } catch (e) {
+        next(e);
+    }
+};
+
+module.exports.uploadProfilePicture = async (req, res, next) => {
+    try {
+        const user = await User.findAll({where: {id: req.params.id}});
+
+        console.log(req.params.id)
+        console.log(user[0].profilePicture)
+
+        if (user[0].profilePicture !== null) {
+            console.log('HERE 1')
+            const imageName = user[0].profilePicture.split('/')[3];
+            console.log(imageName)
+            const filePath = './public/img/' + imageName;
+            fs.unlinkSync(filePath);
+        }
+
+
+        const storage = multer.diskStorage({
+            destination: './public/img/',
+            filename: function ( req, file, cb ) {
+                const avatarName = req.params.id + '-id-avatar-' + Date.now() + '-' + file.originalname;
+                const url = 'http://localhost:3000/' + avatarName;
+                cb( null, avatarName);
+                const update = {profilePicture: url, updateAt: Date.now()};
+                User.update(update, {where: {id: req.params.id}});
             }
         });
         const upload = multer({
@@ -43,9 +85,7 @@ module.exports.deletePhoto = async (req, res, next) => {
 module.exports.updatePhoto = async (req, res, next) => {
     try {
         const photo = await Photo.findAll({where: {userID: req.params.id, photoName: req.params.photoName}});
-        console.log('PHOTO' + photo);
         const filePath = './public/img/' + photo[0].photoName;
-        console.log('FILEPATH' + filePath);
         fs.unlinkSync(filePath);
 
         const storage = multer.diskStorage({
@@ -86,8 +126,6 @@ module.exports.getUserPhotos = async (req, res, next) => {
 
 
 module.exports.getAllPhotos = async (req, res, next) => {
-    console.log("HERE");
-
     try {
         const photo = await Photo.findAll({where: {userID: req.user.id}});
         res.send(photo);
@@ -98,7 +136,6 @@ module.exports.getAllPhotos = async (req, res, next) => {
 
 module.exports.getPhotoById = async (req, res, next) => {
     try {
-        console.log("SERVER getPhotoById")
         const photo = await Photo.findById(req.params.id)
         res.send(photo);
     } catch (e) {

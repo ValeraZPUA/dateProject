@@ -36,11 +36,11 @@ const router = new Router({
       component: NewUser,
       meta: {enterFlag: true}
     },
-    {
-      path: '/updateuser',
-      name: 'updateuser',
-      component: UpdateUser
-    },
+    // {
+    //   path: '/updateuser',
+    //   name: 'updateuser',
+    //   component: UpdateUser
+    // },
     // {
     //   path: '/deleteuser',
     //   name: 'deleteuser',
